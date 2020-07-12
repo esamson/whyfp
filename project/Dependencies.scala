@@ -57,5 +57,10 @@ object Dependencies {
     * In your project settings.
     */
   implicit val depsAppend: Append.Values[Seq[ModuleID], DepsBuilder] =
-    (a: Seq[sbt.ModuleID], b: DepsBuilder) => a ++ b.result
+    new Append.Values[Seq[ModuleID], DepsBuilder] {
+      override def appendValues(
+          a: Seq[ModuleID],
+          b: DepsBuilder
+      ): Seq[ModuleID] = a ++ b.result
+    }
 }
